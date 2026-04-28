@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Ecossistema Mobile Week Tech</string>
+    <string name="title_home">Início</string>
+    <string name="title_registration">Inscrição Participante</string>
+    <string name="title_map">Mapa</string>
+    <string name="title_faq">FAQ</string>
+
+    <string name="hint_name">Nome Completo</string>
+    <string name="hint_ra">RA</string>
+    <string name="hint_course">Curso</string>
+    <string name="hint_series">Série (Ex: 1ª, 2ª...)</string>
+    <string name="confirm_coffee">Confirmar Coffee Break (Check-in)</string>
+    <string name="btn_register">Confirmar Inscrição</string>
+
+    <string name="msg_fill_name">Por favor, preencha o nome</string>
+    <string name="msg_success_registration">Inscrição realizada com sucesso!</string>
+
+    <string name="title_speaker_reg">Inscrição Palestrante</string>
+    <string name="hint_phone">Telefone</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_topic">Tema da Palestra</string>
+    <string name="hint_cv">Currículo (Link ou Resumo)</string>
+    <string name="hint_briefing">Briefing (O que será apresentado)</string>
+    <string name="hint_duration">Tempo Necessário (40-60 min)</string>
+
+    <string name="title_project_reg">Cadastro de Projeto</string>
+    <string name="hint_project_title">Nome do Projeto</string>
+    <string name="hint_description">Descrição do Projeto</string>
+
+    <string name="event_name">Mobile Week Tech 2024</string>
+    <string name="event_description">O maior evento de tecnologia da Unicesumar</string>
+    <string name="schedule_label">Programação</string>
+    <string name="hint_select_event">Selecione a Atividade</string>
+
+    <string name="title_admin_login">Acesso Administrativo</string>
+    <string name="hint_password">Senha</string>
+    <string name="btn_login">Entrar como Admin</string>
+
+    <string name="title_sponsors">Patrocinadores</string>
+    <string name="title_speakers">Palestrantes</string>
+
+    <string-array name="events_array">
+        <item>Abertura: Tendências Mobile 2024</item>
+        <item>Workshop: Flutter na Prática</item>
+        <item>Palestra: UI/UX para Aplicativos</item>
+        <item>Sessão de Projetos: Pitch Day</item>
+        <item>Networking e Encerramento</item>
+    </string-array>
+</resources>

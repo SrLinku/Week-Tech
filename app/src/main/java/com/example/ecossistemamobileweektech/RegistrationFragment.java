@@ -14,7 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.ecossistemamobileweektech.database.AppDatabase;
+import com.example.ecossistemamobileweektech.entity.Projeto;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RegistrationFragment extends Fragment {
     @Nullable
@@ -34,11 +39,18 @@ public class RegistrationFragment extends Fragment {
 
         // Configuração do Spinner de eventos
         try {
-            String[] events = getResources().getStringArray(R.array.events_array);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, events);
+            List<String> eventList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.events_array)));
+            
+            // Buscar projetos do banco e adicionar à lista
+            List<Projeto> projetos = AppDatabase.getInstance(requireContext()).projetoDao().getAll();
+            for (Projeto p : projetos) {
+                eventList.add("Projeto: " + p.getNomeProjeto());
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, eventList);
             eventSpinner.setAdapter(adapter);
         } catch (Exception e) {
-            String[] fallbackEvents = {"Palestra Geral", "Workshop"};
+            List<String> fallbackEvents = new ArrayList<>(Arrays.asList("Palestra Geral", "Workshop"));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, fallbackEvents);
             eventSpinner.setAdapter(adapter);
         }

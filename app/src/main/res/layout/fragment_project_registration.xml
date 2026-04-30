@@ -54,7 +54,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:hint="@string/hint_description">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editProjectDescription"
@@ -64,11 +64,43 @@
                 android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/hint_date">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProjectDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/hint_time">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProjectTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnRegisterProject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_register" />
+            android:text="@string/btn_finish_reg" />
 
     </LinearLayout>
 </ScrollView>

@@ -18,13 +18,17 @@ public class Projeto {
     private String ra;
     private String nomeProjeto;
     private String descricao;
+    private String data;
+    private String horario;
 
     // Construtor para criar um novo objeto Projeto
-    public Projeto(String nomeAluno, String ra, String nomeProjeto, String descricao) {
+    public Projeto(String nomeAluno, String ra, String nomeProjeto, String descricao, String data, String horario) {
         this.nomeAluno = nomeAluno;
         this.ra = ra;
         this.nomeProjeto = nomeProjeto;
         this.descricao = descricao;
+        this.data = data;
+        this.horario = horario;
     }
 
     // Métodos Getter e Setter para o Room acessar os dados
@@ -42,4 +46,10 @@ public class Projeto {
     
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
+
+    public String getData() { return data; }
+    public void setData(String data) { this.data = data; }
+
+    public String getHorario() { return horario; }
+    public void setHorario(String horario) { this.horario = horario; }
 }

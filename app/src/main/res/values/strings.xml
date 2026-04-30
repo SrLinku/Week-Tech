@@ -26,6 +26,9 @@
     <string name="title_project_reg">Cadastro de Projeto</string>
     <string name="hint_project_title">Nome do Projeto</string>
     <string name="hint_description">Descrição do Projeto</string>
+    <string name="hint_date">Data (Ex: 22/05)</string>
+    <string name="hint_time">Horário (Ex: 19:00)</string>
+    <string name="btn_finish_reg">Finalizar cadastro</string>
 
     <string name="event_name">Mobile Week Tech 2024</string>
     <string name="event_description">O maior evento de tecnologia da Unicesumar</string>

@@ -16,7 +16,7 @@ import com.example.ecossistemamobileweektech.entity.Projeto;
  * Define as entidades (tabelas) e a versão do banco.
  * Segue o padrão Singleton para garantir uma única instância do banco em todo o app.
  */
-@Database(entities = {Participant.class, Projeto.class}, version = 2, exportSchema = false)
+@Database(entities = {Participant.class, Projeto.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.ecossistemamobileweektech.database.AppDatabase;
+import com.example.ecossistemamobileweektech.entity.Projeto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,13 @@ public class HomeFragment extends Fragment {
 
         EventAdapter adapter = new EventAdapter(events);
         recyclerView.setAdapter(adapter);
+
+        RecyclerView recyclerViewProjects = view.findViewById(R.id.recyclerViewProjects);
+        recyclerViewProjects.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        List<Projeto> projects = AppDatabase.getInstance(requireContext()).projetoDao().getAll();
+        ProjectAdapter projectAdapter = new ProjectAdapter(projects);
+        recyclerViewProjects.setAdapter(projectAdapter);
 
         return view;
     }

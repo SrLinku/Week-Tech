@@ -27,6 +27,8 @@ public class ProjectRegistrationFragment extends Fragment {
         TextInputEditText ra = view.findViewById(R.id.editProjectOwnerRA);
         TextInputEditText title = view.findViewById(R.id.editProjectTitle);
         TextInputEditText desc = view.findViewById(R.id.editProjectDescription);
+        TextInputEditText date = view.findViewById(R.id.editProjectDate);
+        TextInputEditText time = view.findViewById(R.id.editProjectTime);
         Button btn = view.findViewById(R.id.btnRegisterProject);
 
         btn.setOnClickListener(v -> {
@@ -34,12 +36,14 @@ public class ProjectRegistrationFragment extends Fragment {
             String studentRa = ra.getText().toString();
             String projectTitle = title.getText().toString();
             String projectDesc = desc.getText().toString();
+            String projectDate = date.getText().toString();
+            String projectTime = time.getText().toString();
 
             if (studentName.isEmpty() || projectTitle.isEmpty() || studentRa.isEmpty()) {
                 Toast.makeText(getContext(), "Nome, RA e Título são obrigatórios", Toast.LENGTH_SHORT).show();
             } else {
                 // OPERAÇÃO DE BANCO DE DADOS: Criação do objeto Projeto
-                Projeto novoProjeto = new Projeto(studentName, studentRa, projectTitle, projectDesc);
+                Projeto novoProjeto = new Projeto(studentName, studentRa, projectTitle, projectDesc, projectDate, projectTime);
                 
                 // OPERAÇÃO DE BANCO DE DADOS: Inserção do projeto no banco de dados local via Room
                 AppDatabase.getInstance(requireContext()).projetoDao().insert(novoProjeto);

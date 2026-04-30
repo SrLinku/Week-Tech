@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.navigation.Navigation;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,17 +41,6 @@ public class HomeFragment extends Fragment {
 
         EventAdapter adapter = new EventAdapter(events);
         recyclerView.setAdapter(adapter);
-
-        FloatingActionButton fab = view.findViewById(R.id.fabAddEvent);
-        fab.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.nav_registration);
-        });
-
-        FloatingActionButton fabAdmin = view.findViewById(R.id.fabAdmin);
-        fabAdmin.setOnClickListener(v -> {
-            // Voltando ao fluxo normal de login para segurança, conforme solicitado
-            Navigation.findNavController(view).navigate(R.id.nav_admin_login);
-        });
 
         return view;
     }

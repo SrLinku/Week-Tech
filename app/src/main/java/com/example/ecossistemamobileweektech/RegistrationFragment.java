@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import com.example.ecossistemamobileweektech.database.AppDatabase;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegistrationFragment extends Fragment {
@@ -29,16 +30,20 @@ public class RegistrationFragment extends Fragment {
         CheckBox coffee = view.findViewById(R.id.checkBoxCoffee);
         Button btnRegister = view.findViewById(R.id.buttonRegister);
         
-        Button btnGoToSpeaker = view.findViewById(R.id.btnGoToSpeaker);
         Button btnGoToProject = view.findViewById(R.id.btnGoToProject);
         Button btnBackToHome = view.findViewById(R.id.btnBackToHome);
 
-        // Setup Event Spinner
-        String[] events = getResources().getStringArray(R.array.events_array);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, events);
-        eventSpinner.setAdapter(adapter);
+        // Configuração do Spinner de eventos
+        try {
+            String[] events = getResources().getStringArray(R.array.events_array);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, events);
+            eventSpinner.setAdapter(adapter);
+        } catch (Exception e) {
+            String[] fallbackEvents = {"Palestra Geral", "Workshop"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, fallbackEvents);
+            eventSpinner.setAdapter(adapter);
+        }
 
-        btnGoToSpeaker.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_registration_to_speaker));
         btnGoToProject.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_registration_to_project));
         btnBackToHome.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.nav_home));
 
@@ -50,10 +55,8 @@ public class RegistrationFragment extends Fragment {
 
                 if (participantName.isEmpty() || participantSeries.isEmpty()) {
                     Toast.makeText(getContext(), "Nome e Série são obrigatórios", Toast.LENGTH_SHORT).show();
-                } else if (selectedEvent.isEmpty()) {
-                    Toast.makeText(getContext(), "Selecione a atividade", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Salvar no repositório para o Admin ver
+                    // OPERAÇÃO DE BANCO DE DADOS: Criação do objeto participante com os dados do formulário
                     Participant newParticipant = new Participant(
                             participantName,
                             ra.getText().toString(),
@@ -62,16 +65,11 @@ public class RegistrationFragment extends Fragment {
                             selectedEvent,
                             coffee.isChecked()
                     );
-                    DataRepository.getInstance().addParticipant(newParticipant);
+                    
+                    // OPERAÇÃO DE BANCO DE DADOS: Inserção do participante no banco Room
+                    AppDatabase.getInstance(requireContext()).participanteDao().insert(newParticipant);
 
-                    String message = getString(R.string.msg_success_registration) + "\n" +
-                            "Participante: " + participantName + "\n" +
-                            "Série: " + participantSeries + "\n" +
-                            "Atividade: " + selectedEvent + "\n" +
-                            "Coffee Break: " + (coffee.isChecked() ? "Sim" : "Não");
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-
-                    // Voltar para a tela de início após o sucesso
+                    Toast.makeText(getContext(), "Inscrição realizada e salva no banco!", Toast.LENGTH_LONG).show();
                     Navigation.findNavController(view).navigate(R.id.nav_home);
                 }
             }

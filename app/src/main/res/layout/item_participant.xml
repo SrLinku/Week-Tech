@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,39 +14,69 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/textViewParticipantName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textViewParticipantName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nome do Aluno"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"/>
+
+            <!-- Indicador de Coffee (RF08) -->
+            <TextView
+                android:id="@+id/textViewCoffeeBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☕ COFFEE"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@android:color/holo_orange_dark"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:visibility="gone"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewParticipantDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            android:textColor="@color/text_primary"/>
+            android:text="RA: 12345 | Curso: ADS"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textViewParticipantEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="Atividade: Palestra UI/UX"
             android:textSize="14sp"
             android:textStyle="italic"
-            android:textColor="@color/accent"/>
+            android:textColor="@color/text_secondary"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE"
+            android:layout_marginVertical="8dp"/>
 
         <Button
             android:id="@+id/buttonMarkAttendance"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="end"
-            android:text="Confirmar Presença" />
+            android:text="Confirmar Presença"
+            app:icon="@android:drawable/checkbox_on_background" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

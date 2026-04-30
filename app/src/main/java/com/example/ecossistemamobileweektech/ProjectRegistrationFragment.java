@@ -9,8 +9,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.ecossistemamobileweektech.database.AppDatabase;
+import com.example.ecossistemamobileweektech.entity.Projeto;
 import com.google.android.material.textfield.TextInputEditText;
 
+/**
+ * Fragmento para o cadastro de projetos.
+ * Permite que o participante envie informações sobre um projeto para o banco de dados.
+ */
 public class ProjectRegistrationFragment extends Fragment {
     @Nullable
     @Override
@@ -24,10 +30,21 @@ public class ProjectRegistrationFragment extends Fragment {
         Button btn = view.findViewById(R.id.btnRegisterProject);
 
         btn.setOnClickListener(v -> {
-            if (name.getText().toString().isEmpty() || title.getText().toString().isEmpty()) {
-                Toast.makeText(getContext(), "Nome e Título são obrigatórios", Toast.LENGTH_SHORT).show();
+            String studentName = name.getText().toString();
+            String studentRa = ra.getText().toString();
+            String projectTitle = title.getText().toString();
+            String projectDesc = desc.getText().toString();
+
+            if (studentName.isEmpty() || projectTitle.isEmpty() || studentRa.isEmpty()) {
+                Toast.makeText(getContext(), "Nome, RA e Título são obrigatórios", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), "Projeto enviado para avaliação!", Toast.LENGTH_SHORT).show();
+                // OPERAÇÃO DE BANCO DE DADOS: Criação do objeto Projeto
+                Projeto novoProjeto = new Projeto(studentName, studentRa, projectTitle, projectDesc);
+                
+                // OPERAÇÃO DE BANCO DE DADOS: Inserção do projeto no banco de dados local via Room
+                AppDatabase.getInstance(requireContext()).projetoDao().insert(novoProjeto);
+
+                Toast.makeText(getContext(), "Projeto cadastrado com sucesso no banco!", Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
         });

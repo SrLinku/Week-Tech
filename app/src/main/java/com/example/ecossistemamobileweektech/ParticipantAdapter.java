@@ -27,12 +27,18 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         Participant participant = participants.get(position);
         holder.name.setText(participant.getName());
         holder.details.setText("RA: " + participant.getRa() + " | Curso: " + participant.getCourse() + " (" + participant.getSeries() + " série)");
-        holder.event.setText("Atividade: " + participant.getActivity() + (participant.isCoffee() ? " (Com Coffee)" : " (Sem Coffee)"));
+        holder.event.setText("Atividade: " + participant.getActivity());
+
+        // Mostrar o badge de Coffee se o participante selecionou a opção
+        if (participant.isCoffee()) {
+            holder.coffeeBadge.setVisibility(View.VISIBLE);
+        } else {
+            holder.coffeeBadge.setVisibility(View.GONE);
+        }
 
         if (participant.isAttended()) {
-            holder.attendanceButton.setText("Presença Confirmada ✅");
+            holder.attendanceButton.setText("Presente ✅");
             holder.attendanceButton.setEnabled(false);
-            holder.attendanceButton.setTextColor(0xFF4CAF50); // Verde
         } else {
             holder.attendanceButton.setText("Confirmar Presença");
             holder.attendanceButton.setEnabled(true);
@@ -49,13 +55,14 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, details, event;
+        TextView name, details, event, coffeeBadge;
         android.widget.Button attendanceButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewParticipantName);
             details = itemView.findViewById(R.id.textViewParticipantDetails);
             event = itemView.findViewById(R.id.textViewParticipantEvent);
+            coffeeBadge = itemView.findViewById(R.id.textViewCoffeeBadge);
             attendanceButton = itemView.findViewById(R.id.buttonMarkAttendance);
         }
     }

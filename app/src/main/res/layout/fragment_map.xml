@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@android:drawable/ic_dialog_map"
+        app:tint="?attr/colorPrimary"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localização do Evento"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="bottom"
         app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        app:cardElevation="2dp"
+        android:layout_marginBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,15 +40,33 @@
                 android:layout_height="wrap_content"
                 android:text="Unicesumar - Campus Londrina"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
 
             <TextView
+                android:id="@+id/textViewAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Av. Santa Mônica, 450 - Vila Santa Terezinha"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"/>
+                android:layout_marginTop="8dp"
+                android:text="Av. Santa Mônica, 450 - Vila Santa Terezinha, Londrina - PR"
+                android:textSize="16sp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnOpenMaps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver no Google Maps"
+        android:padding="12dp"
+        app:icon="@android:drawable/ic_menu_directions" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="O evento ocorrerá em todo o campus da universidade."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:alpha="0.7"/>
+
+</LinearLayout>

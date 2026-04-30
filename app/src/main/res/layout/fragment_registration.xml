@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_registration"
+            android:text="Inscrição de Participante"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/hint_name">
+            android:hint="Nome Completo">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/hint_ra">
+            android:hint="RA">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextRA"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/hint_course">
+            android:hint="Curso">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextCourse"
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/hint_series">
+            android:hint="Série/Semestre">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextSeries"
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="@string/hint_select_event">
+            android:hint="Selecione a Atividade">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteEvent"
@@ -80,7 +80,7 @@
             android:id="@+id/checkBoxCoffee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_coffee"
+            android:text="Desejo participar do Coffee Break (RF08)"
             android:layout_marginBottom="16dp" />
 
         <Button
@@ -88,36 +88,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/btn_register" />
+            android:text="Finalizar Inscrição" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Outras Inscrições"
+            android:text="Deseja apresentar um projeto?"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnGoToProject"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnGoToSpeaker"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Palestrante" />
-
-            <Button
-                android:id="@+id/btnGoToProject"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Projeto" />
-        </LinearLayout>
+            android:text="Cadastrar meu Projeto (RF09)" />
 
         <Button
             android:id="@+id/btnBackToHome"
@@ -125,8 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Voltar para o Início"
-            android:textColor="@color/primary" />
+            android:text="Voltar para o Início" />
 
     </LinearLayout>
 </ScrollView>

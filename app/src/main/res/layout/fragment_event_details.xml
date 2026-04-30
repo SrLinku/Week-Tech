@@ -7,14 +7,14 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/textEventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gestão do Evento (Cris)"
+        android:text="Detalhes do Evento"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Resumo de Quantidades (RF07 e RF08) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,8 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            app:cardCornerRadius="8dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
                 android:padding="12dp"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/textTotalParticipants"
+                    android:id="@+id/textEventParticipants"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -54,8 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            app:cardCornerRadius="8dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
                 android:padding="12dp"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/textTotalCoffee"
+                    android:id="@+id/textEventCoffee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -79,38 +77,25 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Atividades e Projetos"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewActivities"
+    <Button
+        android:id="@+id/btnShowCoffeeList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:text="Lista Coffee Break"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
+        android:id="@+id/textListLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Todos os Participantes"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewParticipants"
+        android:id="@+id/recyclerViewEventParticipants"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/btnAddAdmin"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Gerenciar Admins" />
 
 </LinearLayout>

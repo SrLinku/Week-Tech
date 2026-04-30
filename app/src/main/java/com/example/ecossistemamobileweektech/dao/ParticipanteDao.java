@@ -40,4 +40,20 @@ public interface ParticipanteDao {
     // Retorna a quantidade de participantes que confirmaram Coffee Break
     @Query("SELECT COUNT(*) FROM participants WHERE coffee = 1")
     int getCoffeeCount();
+
+    // Retorna a lista de participantes inscritos em uma atividade específica
+    @Query("SELECT * FROM participants WHERE activity = :activityName")
+    List<Participant> getByActivity(String activityName);
+
+    // Retorna a quantidade de participantes em uma atividade específica
+    @Query("SELECT COUNT(*) FROM participants WHERE activity = :activityName")
+    int getCountByActivity(String activityName);
+
+    // Retorna a quantidade de coffee break em uma atividade específica
+    @Query("SELECT COUNT(*) FROM participants WHERE activity = :activityName AND coffee = 1")
+    int getCoffeeCountByActivity(String activityName);
+
+    // Retorna a lista de nomes para coffee break em uma atividade específica
+    @Query("SELECT * FROM participants WHERE activity = :activityName AND coffee = 1")
+    List<Participant> getCoffeeParticipantsByActivity(String activityName);
 }

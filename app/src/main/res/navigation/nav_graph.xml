@@ -45,6 +45,19 @@
         <action
             android:id="@+id/action_dashboard_to_add_admin"
             app:destination="@id/nav_add_admin" />
+        <action
+            android:id="@+id/action_dashboard_to_event_details"
+            app:destination="@id/nav_event_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_event_details"
+        android:name="com.example.ecossistemamobileweektech.EventDetailsFragment"
+        android:label="Detalhes da Atividade"
+        tools:layout="@layout/fragment_event_details">
+        <argument
+            android:name="activityName"
+            app:argType="string" />
     </fragment>
 
     <fragment

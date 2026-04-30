@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.Navigation;
 import com.example.ecossistemamobileweektech.database.AppDatabase;
+import com.example.ecossistemamobileweektech.entity.Projeto;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +27,11 @@ public class AdminDashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewParticipants);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView recyclerViewParticipants = view.findViewById(R.id.recyclerViewParticipants);
+        recyclerViewParticipants.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        RecyclerView recyclerViewActivities = view.findViewById(R.id.recyclerViewActivities);
+        recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getContext()));
 
         TextView textTotalParticipants = view.findViewById(R.id.textTotalParticipants);
         TextView textTotalCoffee = view.findViewById(R.id.textTotalCoffee);
@@ -45,8 +50,24 @@ public class AdminDashboardFragment extends Fragment {
         if (textTotalParticipants != null) textTotalParticipants.setText(String.valueOf(totalInscritos));
         if (textTotalCoffee != null) textTotalCoffee.setText(String.valueOf(totalCoffee));
 
-        ParticipantAdapter adapter = new ParticipantAdapter(participantList);
-        recyclerView.setAdapter(adapter);
+        // Configura lista de participantes geral
+        ParticipantAdapter participantAdapter = new ParticipantAdapter(participantList);
+        recyclerViewParticipants.setAdapter(participantAdapter);
+
+        // Configura lista de atividades (padrão + projetos)
+        List<String> activityList = new ArrayList<>();
+        String[] defaultEvents = getResources().getStringArray(R.array.events_array);
+        for (String event : defaultEvents) {
+            activityList.add(event);
+        }
+        
+        List<Projeto> projects = db.projetoDao().getAll();
+        for (Projeto p : projects) {
+            activityList.add("Projeto: " + p.getNomeProjeto());
+        }
+
+        ActivitySummaryAdapter activityAdapter = new ActivitySummaryAdapter(activityList);
+        recyclerViewActivities.setAdapter(activityAdapter);
 
         view.findViewById(R.id.btnAddAdmin).setOnClickListener(v -> 
             Navigation.findNavController(view).navigate(R.id.action_dashboard_to_add_admin)

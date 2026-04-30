@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.navigation.Navigation;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.TextView;

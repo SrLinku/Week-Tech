@@ -31,7 +31,6 @@ public class RegistrationFragment extends Fragment {
         Button btnRegister = view.findViewById(R.id.buttonRegister);
         
         Button btnGoToProject = view.findViewById(R.id.btnGoToProject);
-        Button btnBackToHome = view.findViewById(R.id.btnBackToHome);
 
         // Configuração do Spinner de eventos
         try {
@@ -45,7 +44,6 @@ public class RegistrationFragment extends Fragment {
         }
 
         btnGoToProject.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_registration_to_project));
-        btnBackToHome.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.nav_home));
 
         btnRegister.setOnClickListener(v -> {
             if (name.getText() != null && ra.getText() != null && course.getText() != null && series.getText() != null) {

@@ -104,13 +104,5 @@
             android:layout_height="wrap_content"
             android:text="Cadastrar meu Projeto (RF09)" />
 
-        <Button
-            android:id="@+id/btnBackToHome"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Voltar para o Início" />
-
     </LinearLayout>
 </ScrollView>

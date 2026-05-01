@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecossistemamobileweektech.database.AppDatabase;
 import com.example.ecossistemamobileweektech.entity.Projeto;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -30,18 +29,6 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://maps.app.goo.gl/vj4U2rER3KLXQAL3A"));
             startActivity(intent);
         });
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewEvents);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        List<Event> events = new ArrayList<>();
-        events.add(new Event("Abertura", "Diretoria", "19:00", "Palestra"));
-        events.add(new Event("Desenvolvimento Android", "João Silva", "20:00", "Palestra"));
-        events.add(new Event("UI/UX Design", "Maria Souza", "21:00", "Palestra"));
-        events.add(new Event("Workshop Kotlin", "Pedro Santos", "19:30", "Projeto"));
-
-        EventAdapter adapter = new EventAdapter(events);
-        recyclerView.setAdapter(adapter);
 
         RecyclerView recyclerViewProjects = view.findViewById(R.id.recyclerViewProjects);
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(getContext()));

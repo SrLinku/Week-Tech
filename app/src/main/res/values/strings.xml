@@ -43,10 +43,5 @@
     <string name="title_speakers">Palestrantes</string>
 
     <string-array name="events_array">
-        <item>Abertura: Tendências Mobile 2024</item>
-        <item>Workshop: Flutter na Prática</item>
-        <item>Palestra: UI/UX para Aplicativos</item>
-        <item>Sessão de Projetos: Pitch Day</item>
-        <item>Networking e Encerramento</item>
     </string-array>
 </resources>

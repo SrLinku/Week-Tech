@@ -74,48 +74,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/schedule_label"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewEvents"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:clipToPadding="false"
-                    android:paddingBottom="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/title_speakers"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:clipToPadding="false">
-                    <LinearLayout
-                        android:id="@+id/layoutSpeakers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-                </HorizontalScrollView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
                     android:text="Projetos em Destaque"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
@@ -127,28 +85,6 @@
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:paddingBottom="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/title_sponsors"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="3"
-                    android:paddingHorizontal="16dp"
-                    android:layout_marginBottom="80dp">
-                    <ImageView android:layout_width="80dp" android:layout_height="40dp" android:src="@android:drawable/btn_star" android:layout_margin="8dp" />
-                    <ImageView android:layout_width="80dp" android:layout_height="40dp" android:src="@android:drawable/btn_star" android:layout_margin="8dp" />
-                    <ImageView android:layout_width="80dp" android:layout_height="40dp" android:src="@android:drawable/btn_star" android:layout_margin="8dp" />
-                </GridLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

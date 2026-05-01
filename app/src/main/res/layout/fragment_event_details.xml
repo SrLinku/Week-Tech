@@ -13,7 +13,26 @@
         android:text="Detalhes do Evento"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/textApprovalStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Pendente"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnApproveProject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aprovar Projeto"
+        android:backgroundTint="#4CAF50"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"

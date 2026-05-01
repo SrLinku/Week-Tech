@@ -41,8 +41,8 @@ public class RegistrationFragment extends Fragment {
         try {
             List<String> eventList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.events_array)));
             
-            // Buscar projetos do banco e adicionar à lista
-            List<Projeto> projetos = AppDatabase.getInstance(requireContext()).projetoDao().getAll();
+            // Buscar apenas projetos aprovados do banco e adicionar à lista
+            List<Projeto> projetos = AppDatabase.getInstance(requireContext()).projetoDao().getApproved();
             for (Projeto p : projetos) {
                 eventList.add("Projeto: " + p.getNomeProjeto());
             }

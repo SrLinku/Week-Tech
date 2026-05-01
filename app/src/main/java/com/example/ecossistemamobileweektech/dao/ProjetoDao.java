@@ -33,6 +33,14 @@ public interface ProjetoDao {
     @Query("SELECT * FROM projetos")
     List<Projeto> getAll();
 
+    // Retorna apenas os projetos que já foram aprovados pelo admin
+    @Query("SELECT * FROM projetos WHERE approved = 1")
+    List<Projeto> getApproved();
+
+    // Busca um projeto específico pelo nome
+    @Query("SELECT * FROM projetos WHERE nomeProjeto = :projectName LIMIT 1")
+    Projeto getByName(String projectName);
+
     // Busca projetos específicos através do RA do aluno
     @Query("SELECT * FROM projetos WHERE ra = :ra")
     List<Projeto> getByRa(String ra);

@@ -20,6 +20,7 @@ public class Projeto {
     private String descricao;
     private String data;
     private String horario;
+    private boolean approved;
 
     // Construtor para criar um novo objeto Projeto
     public Projeto(String nomeAluno, String ra, String nomeProjeto, String descricao, String data, String horario) {
@@ -29,6 +30,7 @@ public class Projeto {
         this.descricao = descricao;
         this.data = data;
         this.horario = horario;
+        this.approved = false; // Por padrão, o projeto começa como não aprovado
     }
 
     // Métodos Getter e Setter para o Room acessar os dados
@@ -52,4 +54,7 @@ public class Projeto {
 
     public String getHorario() { return horario; }
     public void setHorario(String horario) { this.horario = horario; }
+
+    public boolean isApproved() { return approved; }
+    public void setApproved(boolean approved) { this.approved = approved; }
 }

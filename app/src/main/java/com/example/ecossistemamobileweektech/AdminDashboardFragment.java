@@ -26,6 +26,11 @@ public class AdminDashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
 
+        View btnLogout = view.findViewById(R.id.btnAdminLogout);
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.nav_user_selection));
+        }
+
         RecyclerView recyclerViewActivities = view.findViewById(R.id.recyclerViewActivities);
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getContext()));
 

@@ -17,12 +17,18 @@ import java.util.List;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.TextView;
+import androidx.navigation.Navigation;
 
 public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        View btnLogout = view.findViewById(R.id.btnLogout);
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.nav_user_selection));
+        }
 
         TextView locationLink = view.findViewById(R.id.textViewLocationLink);
         locationLink.setOnClickListener(v -> {

@@ -20,6 +20,16 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean isProfessionalMode = false;
+
+    public void setProfessionalMode(boolean professional) {
+        this.isProfessionalMode = professional;
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
+        if (navView != null) {
+            navView.getMenu().findItem(R.id.nav_admin_dashboard).setVisible(professional);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        // Ocultar/Exibir BottomNav dependendo do destino e gerenciar visibilidade do item Admin
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.nav_user_selection || 
+                destination.getId() == R.id.nav_admin_login) {
+                navView.setVisibility(View.GONE);
+            } else {
+                navView.setVisibility(View.VISIBLE);
+                // Garante que o item Admin só apareça se estiver no modo profissional
+                navView.getMenu().findItem(R.id.nav_admin_dashboard).setVisible(isProfessionalMode);
+            }
+        });
     }
 
     @Override

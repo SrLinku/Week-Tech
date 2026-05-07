@@ -10,9 +10,15 @@ import java.util.List;
 
 public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.ViewHolder> {
     private List<Participant> participants;
+    private boolean isAdmin;
 
     public ParticipantAdapter(List<Participant> participants) {
+        this(participants, true); // Por padrão assume admin para não quebrar dashboard
+    }
+
+    public ParticipantAdapter(List<Participant> participants, boolean isAdmin) {
         this.participants = participants;
+        this.isAdmin = isAdmin;
     }
 
     @NonNull
@@ -36,16 +42,27 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
             holder.coffeeBadge.setVisibility(View.GONE);
         }
 
-        if (participant.isAttended()) {
-            holder.attendanceButton.setText("Presente ✅");
-            holder.attendanceButton.setEnabled(false);
+        if (isAdmin) {
+            holder.attendanceButton.setVisibility(View.VISIBLE);
+            if (participant.isAttended()) {
+                holder.attendanceButton.setText("Presente ✅");
+                holder.attendanceButton.setEnabled(false);
+            } else {
+                holder.attendanceButton.setText("Confirmar Presença");
+                holder.attendanceButton.setEnabled(true);
+                holder.attendanceButton.setOnClickListener(v -> {
+                    participant.setAttended(true);
+                    // Atualizar no banco de dados (estava faltando no adaptador original)
+                    com.example.ecossistemamobileweektech.database.AppDatabase.getInstance(v.getContext()).participanteDao().update(participant);
+                    notifyItemChanged(position);
+                });
+            }
         } else {
-            holder.attendanceButton.setText("Confirmar Presença");
-            holder.attendanceButton.setEnabled(true);
-            holder.attendanceButton.setOnClickListener(v -> {
-                participant.setAttended(true);
-                notifyItemChanged(position);
-            });
+            holder.attendanceButton.setVisibility(View.GONE);
+            // Mostrar status de presença apenas como texto se já confirmado
+            if (participant.isAttended()) {
+                holder.event.setText(holder.event.getText() + " (Presente ✅)");
+            }
         }
     }
 

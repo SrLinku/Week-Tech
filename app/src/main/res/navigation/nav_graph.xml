@@ -25,6 +25,15 @@
         <action
             android:id="@+id/action_registration_to_project"
             app:destination="@id/nav_project_registration" />
+        <argument
+            android:name="selectedActivity"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+        <argument
+            android:name="withCoffee"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -83,5 +92,11 @@
         android:name="com.example.ecossistemamobileweektech.FaqFragment"
         android:label="FAQ"
         tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/nav_my_inscriptions"
+        android:name="com.example.ecossistemamobileweektech.MyInscriptionsFragment"
+        android:label="Minhas Inscrições"
+        tools:layout="@layout/fragment_my_inscriptions" />
 
 </navigation>

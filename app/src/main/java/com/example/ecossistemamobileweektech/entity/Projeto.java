@@ -21,6 +21,7 @@ public class Projeto {
     private String data;
     private String horario;
     private boolean approved;
+    private boolean hasCoffeeBreak;
 
     // Construtor para criar um novo objeto Projeto
     public Projeto(String nomeAluno, String ra, String nomeProjeto, String descricao, String data, String horario) {
@@ -31,6 +32,7 @@ public class Projeto {
         this.data = data;
         this.horario = horario;
         this.approved = false; // Por padrão, o projeto começa como não aprovado
+        this.hasCoffeeBreak = false; // Por padrão, sem coffee break
     }
 
     // Métodos Getter e Setter para o Room acessar os dados
@@ -57,4 +59,7 @@ public class Projeto {
 
     public boolean isApproved() { return approved; }
     public void setApproved(boolean approved) { this.approved = approved; }
+
+    public boolean isHasCoffeeBreak() { return hasCoffeeBreak; }
+    public void setHasCoffeeBreak(boolean hasCoffeeBreak) { this.hasCoffeeBreak = hasCoffeeBreak; }
 }

@@ -32,6 +32,21 @@
                 android:textSize="10sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/badgeInscribed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_category_badge"
+                android:backgroundTint="#4CAF50"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="INSCRITO"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"

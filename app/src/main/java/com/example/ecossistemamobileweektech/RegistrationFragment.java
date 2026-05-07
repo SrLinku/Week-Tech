@@ -49,10 +49,28 @@ public class RegistrationFragment extends Fragment {
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, eventList);
             eventSpinner.setAdapter(adapter);
+
+            // Ouvinte para mudar a visibilidade do Coffee Break
+            eventSpinner.setOnItemClickListener((parent, view1, position, id) -> {
+                String selection = (String) parent.getItemAtPosition(position);
+                updateCoffeeVisibility(selection, coffee);
+            });
         } catch (Exception e) {
             List<String> fallbackEvents = new ArrayList<>(Arrays.asList("Palestra Geral", "Workshop"));
             ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, fallbackEvents);
             eventSpinner.setAdapter(adapter);
+        }
+
+        // Processar argumentos se vier da tela expandida
+        if (getArguments() != null) {
+            String preSelected = getArguments().getString("selectedActivity");
+            boolean withCoffee = getArguments().getBoolean("withCoffee");
+            
+            if (preSelected != null) {
+                eventSpinner.setText(preSelected, false);
+                updateCoffeeVisibility(preSelected, coffee);
+                coffee.setChecked(withCoffee);
+            }
         }
 
         btnGoToProject.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_registration_to_project));
@@ -86,5 +104,31 @@ public class RegistrationFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void updateCoffeeVisibility(String selection, CheckBox coffee) {
+        if (selection == null) {
+            coffee.setVisibility(View.GONE);
+            return;
+        }
+
+        if (selection.startsWith("Projeto: ")) {
+            String projectName = selection.replace("Projeto: ", "");
+            Projeto p = AppDatabase.getInstance(requireContext()).projetoDao().getByName(projectName);
+            if (p != null && p.isHasCoffeeBreak()) {
+                coffee.setVisibility(View.VISIBLE);
+            } else {
+                coffee.setVisibility(View.GONE);
+                coffee.setChecked(false);
+            }
+        } else {
+            // Regra para eventos padrão (apenas o de Networking/Encerramento tem coffee)
+            if (selection.contains("Networking") || selection.contains("Encerramento")) {
+                coffee.setVisibility(View.VISIBLE);
+            } else {
+                coffee.setVisibility(View.GONE);
+                coffee.setChecked(false);
+            }
+        }
     }
 }

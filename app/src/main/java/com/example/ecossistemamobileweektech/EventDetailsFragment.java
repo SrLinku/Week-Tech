@@ -33,6 +33,7 @@ public class EventDetailsFragment extends Fragment {
 
         TextView textTitle = view.findViewById(R.id.textEventTitle);
         TextView textParticipantsCount = view.findViewById(R.id.textEventParticipants);
+        TextView textAttendedCount = view.findViewById(R.id.textEventAttended);
         TextView textCoffeeCount = view.findViewById(R.id.textEventCoffee);
         TextView textListLabel = view.findViewById(R.id.textListLabel);
         TextView textApprovalStatus = view.findViewById(R.id.textApprovalStatus);
@@ -64,9 +65,11 @@ public class EventDetailsFragment extends Fragment {
         }
 
         int totalInscritos = db.participanteDao().getCountByActivity(activityName);
+        int totalAttended = db.participanteDao().getAttendedCountByActivity(activityName);
         int totalCoffee = db.participanteDao().getCoffeeCountByActivity(activityName);
 
         textParticipantsCount.setText(String.valueOf(totalInscritos));
+        textAttendedCount.setText(String.valueOf(totalAttended));
         textCoffeeCount.setText(String.valueOf(totalCoffee));
 
         updateList(db, recyclerView, textListLabel, btnCoffeeList);

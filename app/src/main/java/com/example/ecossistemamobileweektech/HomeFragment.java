@@ -17,7 +17,9 @@ import java.util.List;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.navigation.Navigation;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class HomeFragment extends Fragment {
     @Nullable
@@ -40,7 +42,7 @@ public class HomeFragment extends Fragment {
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Projeto> projects = AppDatabase.getInstance(requireContext()).projetoDao().getAll();
-        ProjectAdapter projectAdapter = new ProjectAdapter(projects);
+        ProjectAdapter projectAdapter = new ProjectAdapter(projects, requireContext());
         recyclerViewProjects.setAdapter(projectAdapter);
 
         return view;

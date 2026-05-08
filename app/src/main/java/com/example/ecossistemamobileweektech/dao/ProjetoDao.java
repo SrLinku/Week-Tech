@@ -33,9 +33,13 @@ public interface ProjetoDao {
     @Query("SELECT * FROM projetos")
     List<Projeto> getAll();
 
-    // Retorna apenas os projetos que já foram aprovados pelo admin
-    @Query("SELECT * FROM projetos WHERE approved = 1")
+    // Retorna apenas os projetos que já foram aprovados pelo admin (status = 1)
+    @Query("SELECT * FROM projetos WHERE status = 1")
     List<Projeto> getApproved();
+
+    // Retorna projetos por status específico (0=Pendente, 1=Aprovado, 2=Recusado)
+    @Query("SELECT * FROM projetos WHERE status = :status")
+    List<Projeto> getByStatus(int status);
 
     // Busca um projeto específico pelo nome
     @Query("SELECT * FROM projetos WHERE nomeProjeto = :projectName LIMIT 1")

@@ -2,16 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="Início" />
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Eventos" />
     <item
         android:id="@+id/nav_project_registration"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="Meus Projetos" />
-    <item
-        android:id="@+id/nav_faq"
-        android:icon="@android:drawable/ic_menu_help"
-        android:title="FAQ" />
     <item
         android:id="@+id/nav_my_inscriptions"
         android:icon="@android:drawable/ic_menu_agenda"
@@ -19,5 +15,9 @@
     <item
         android:id="@+id/nav_admin_dashboard"
         android:icon="@android:drawable/ic_lock_lock"
-        android:title="Admin" />
+        android:title="Projetos" />
+    <item
+        android:id="@+id/nav_admin_management"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Admins" />
 </menu>

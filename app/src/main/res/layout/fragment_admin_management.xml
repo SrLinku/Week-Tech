@@ -7,24 +7,36 @@
     android:padding="16dp">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minhas Inscrições"
+        android:text="Gerenciar Administradores"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
 
     <TextView
-        android:id="@+id/textNoInscriptions"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nenhuma inscrição encontrada para o seu RA."
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:visibility="gone" />
+        android:text="Solicitações Pendentes"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInscriptions"
+        android:id="@+id/rvPendingAdmins"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Administradores Ativos"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvActiveAdmins"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

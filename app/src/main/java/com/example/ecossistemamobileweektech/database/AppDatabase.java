@@ -6,17 +6,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.ecossistemamobileweektech.dao.AdminDao;
 import com.example.ecossistemamobileweektech.dao.ParticipanteDao;
 import com.example.ecossistemamobileweektech.dao.ProjetoDao;
-import com.example.ecossistemamobileweektech.Participant;
+import com.example.ecossistemamobileweektech.dao.UsuarioDao;
+import com.example.ecossistemamobileweektech.entity.Admin;
+import com.example.ecossistemamobileweektech.entity.Participante;
 import com.example.ecossistemamobileweektech.entity.Projeto;
+import com.example.ecossistemamobileweektech.entity.Usuario;
 
 /**
  * Classe principal do Banco de Dados Room.
  * Define as entidades (tabelas) e a versão do banco.
  * Segue o padrão Singleton para garantir uma única instância do banco em todo o app.
  */
-@Database(entities = {Participant.class, Projeto.class}, version = 5, exportSchema = false)
+@Database(entities = {Participante.class, Projeto.class, Admin.class, Usuario.class}, version = 11, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
@@ -24,6 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
     // Métodos abstratos para acessar os DAOs
     public abstract ParticipanteDao participanteDao();
     public abstract ProjetoDao projetoDao();
+    public abstract AdminDao adminDao();
+    public abstract UsuarioDao usuarioDao();
 
     /**
      * Retorna a instância única do banco de dados (Singleton).

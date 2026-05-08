@@ -30,18 +30,47 @@
     <string name="hint_time">Horário (Ex: 19:00)</string>
     <string name="btn_finish_reg">Finalizar cadastro</string>
 
-    <string name="event_name">Mobile Week Tech 2024</string>
-    <string name="event_description">O maior evento de tecnologia da Unicesumar</string>
-    <string name="schedule_label">Programação</string>
+    <string name="event_name">Mobile Week Tech</string>
+    <string name="event_description">Unicesumar Campus Londrina</string>
+    <string name="schedule_label">Eventos Disponíveis</string>
+    <string name="view_location">📍 Ver Localização</string>
     <string name="hint_select_event">Selecione a Atividade</string>
 
     <string name="title_admin_login">Acesso Administrativo</string>
+    <string name="title_admin_dashboard">Gestão do Evento (%1$s)</string>
     <string name="hint_password">Senha</string>
+    <string name="hint_admin_name">Nome do Administrador</string>
+    <string name="error_admin_name">Informe seu nome</string>
     <string name="btn_login">Entrar como Admin</string>
 
     <string name="title_sponsors">Patrocinadores</string>
     <string name="title_speakers">Palestrantes</string>
 
+    <string-array name="courses_array">
+        <item>Medicina</item>
+        <item>Biomedicina</item>
+        <item>Educação Física</item>
+        <item>Medicina Veterinária</item>
+        <item>Análise e Desenvolvimento de Sistemas (ADS)</item>
+        <item>Automação Industrial</item>
+        <item>Arquitetura e Urbanismo</item>
+        <item>Engenharia Civil</item>
+        <item>Engenharia de Produção</item>
+        <item>Engenharia Elétrica</item>
+        <item>Engenharia Mecânica</item>
+        <item>Engenharia Mecatrônica</item>
+        <item>Engenharia Ambiental</item>
+        <item>Engenharia de Software</item>
+        <item>Administração</item>
+        <item>Agronegócio</item>
+        <item>Ciências Contábeis</item>
+        <item>Direito</item>
+        <item>Psicologia</item>
+    </string-array>
+
     <string-array name="events_array">
+        <item>Palestra: O Futuro do Android</item>
+        <item>Workshop: Flutter na Prática</item>
+        <item>Networking &amp; Coffee Break</item>
     </string-array>
 </resources>

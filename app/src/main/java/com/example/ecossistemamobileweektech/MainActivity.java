@@ -24,9 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void setProfessionalMode(boolean professional) {
         this.isProfessionalMode = professional;
+        android.content.SharedPreferences prefs = getSharedPreferences("WeekTechPrefs", MODE_PRIVATE);
+        boolean isSuper = prefs.getBoolean("is_super_admin", false);
+
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         if (navView != null) {
+            // Itens de Aluno
+            navView.getMenu().findItem(R.id.nav_home).setVisible(!professional);
+            navView.getMenu().findItem(R.id.nav_project_registration).setVisible(!professional);
+            navView.getMenu().findItem(R.id.nav_my_inscriptions).setVisible(!professional);
+            
+            // Itens de Admin
             navView.getMenu().findItem(R.id.nav_admin_dashboard).setVisible(professional);
+            navView.getMenu().findItem(R.id.nav_admin_management).setVisible(professional && isSuper);
         }
     }
 
@@ -52,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        // Apenas a Home é o destino raiz. Todas as outras terão a seta de voltar.
+        // Configurar destinos raiz.
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.nav_home);
+        topLevelDestinations.add(R.id.nav_project_registration);
+        topLevelDestinations.add(R.id.nav_admin_dashboard);
+        topLevelDestinations.add(R.id.nav_my_inscriptions);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations).build();
         
@@ -63,13 +76,38 @@ public class MainActivity extends AppCompatActivity {
 
         // Ocultar/Exibir BottomNav dependendo do destino e gerenciar visibilidade do item Admin
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.nav_user_selection || 
-                destination.getId() == R.id.nav_admin_login) {
+            int id = destination.getId();
+            if (id == R.id.nav_auth_selection || 
+                id == R.id.nav_user_selection || 
+                id == R.id.nav_admin_login ||
+                id == R.id.nav_student_login ||
+                id == R.id.nav_signup) {
                 navView.setVisibility(View.GONE);
+                
+                // Se voltar para seleção de auth, reseta o modo profissional por precaução
+                if (id == R.id.nav_auth_selection) {
+                    isProfessionalMode = false;
+                }
             } else {
                 navView.setVisibility(View.VISIBLE);
-                // Garante que o item Admin só apareça se estiver no modo profissional
+                
+                // Gerencia visibilidade dos itens dependendo do modo
                 navView.getMenu().findItem(R.id.nav_admin_dashboard).setVisible(isProfessionalMode);
+                navView.getMenu().findItem(R.id.nav_home).setVisible(!isProfessionalMode);
+                navView.getMenu().findItem(R.id.nav_project_registration).setVisible(!isProfessionalMode);
+                navView.getMenu().findItem(R.id.nav_my_inscriptions).setVisible(!isProfessionalMode);
+                
+                // Gerenciar visibilidade da gestão de admins (apenas se for super admin)
+                android.content.SharedPreferences prefs = getSharedPreferences("WeekTechPrefs", MODE_PRIVATE);
+                boolean isSuper = prefs.getBoolean("is_super_admin", false);
+                navView.getMenu().findItem(R.id.nav_admin_management).setVisible(isProfessionalMode && isSuper);
+
+                // Ocultar Toolbar em destinos que já possuem cabeçalho customizado (Home)
+                if (id == R.id.nav_home) {
+                    if (getSupportActionBar() != null) getSupportActionBar().hide();
+                } else {
+                    if (getSupportActionBar() != null) getSupportActionBar().show();
+                }
             }
         });
     }

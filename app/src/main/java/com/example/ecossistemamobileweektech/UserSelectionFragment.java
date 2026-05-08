@@ -24,11 +24,11 @@ public class UserSelectionFragment extends Fragment {
         }
 
         view.findViewById(R.id.cardStudent).setOnClickListener(v -> {
-            // Se for aluno, vai para a Home e desativa o modo profissional
+            // Se for aluno, vai para a tela de login do estudante
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).setProfessionalMode(false);
             }
-            Navigation.findNavController(view).navigate(R.id.nav_home);
+            Navigation.findNavController(view).navigate(R.id.action_user_selection_to_student_login);
         });
 
         view.findViewById(R.id.cardProfessional).setOnClickListener(v -> {
@@ -36,7 +36,7 @@ public class UserSelectionFragment extends Fragment {
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).setProfessionalMode(true);
             }
-            Navigation.findNavController(view).navigate(R.id.nav_admin_login);
+            Navigation.findNavController(view).navigate(R.id.action_user_selection_to_admin_login);
         });
 
         return view;

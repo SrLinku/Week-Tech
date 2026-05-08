@@ -12,6 +12,13 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="secondary">#00BFA5</color>
+
+    <!-- Cores para Categorias de Eventos -->
+    <color name="color_project_tag">#4CAF50</color>
+    <color name="color_project_bg">#E8F5E9</color>
+    <color name="color_lecture_tag">#2196F3</color>
+    <color name="color_lecture_bg">#E3F2FD</color>
 
     <color name="category_palestra">#E3F2FD</color>
     <color name="category_projeto">#E8F5E9</color>

@@ -3,21 +3,19 @@ package com.example.ecossistemamobileweektech;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repositório de dados em memória para gerenciar administradores.
+ * Utilizado para validação de acesso ao painel administrativo.
+ */
 public class DataRepository {
     private static DataRepository instance;
-    private List<Participant> participants;
-    private List<Admin> admins;
+    private final List<Admin> admins;
 
     private DataRepository() {
-        participants = new ArrayList<>();
         admins = new ArrayList<>();
-        // Adicionando administrador padrão
+        // Administradores padrão para testes e produção
         admins.add(new Admin("123", "123"));
         admins.add(new Admin("admin@unicesumar.edu.br", "cris123"));
-        
-        // Adicionando alguns dados mockados para o Admin ver inicialmente
-        participants.add(new Participant("João Silva", "123456", "ADS", "1ª", "Workshop: Flutter", true));
-        participants.add(new Participant("Maria Oliveira", "654321", "Software", "2ª", "UI/UX Design", false));
     }
 
     public static synchronized DataRepository getInstance() {
@@ -27,18 +25,16 @@ public class DataRepository {
         return instance;
     }
 
-    public void addParticipant(Participant participant) {
-        participants.add(participant);
-    }
-
-    public List<Participant> getParticipants() {
-        return participants;
-    }
-
+    /**
+     * Adiciona um novo administrador à lista em memória.
+     */
     public void addAdmin(Admin admin) {
         admins.add(admin);
     }
 
+    /**
+     * Valida se as credenciais informadas pertencem a um administrador cadastrado.
+     */
     public boolean validateAdmin(String email, String password) {
         for (Admin admin : admins) {
             if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {

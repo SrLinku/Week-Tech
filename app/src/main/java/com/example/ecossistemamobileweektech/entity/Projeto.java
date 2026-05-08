@@ -20,8 +20,23 @@ public class Projeto {
     private String descricao;
     private String data;
     private String horario;
-    private boolean approved;
+    private int status; // 0 = Pendente, 1 = Aprovado, 2 = Recusado, 3 = Solicitação de Cancelamento
+    private String feedback; // Feedback do admin em caso de recusa ou motivo de cancelamento
     private boolean hasCoffeeBreak;
+
+    @androidx.room.Ignore
+    private String tipoEvento = "PROJETO";
+
+    public String getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(String tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
+
+    @androidx.room.Ignore
+    public Projeto() {}
 
     // Construtor para criar um novo objeto Projeto
     public Projeto(String nomeAluno, String ra, String nomeProjeto, String descricao, String data, String horario) {
@@ -31,8 +46,8 @@ public class Projeto {
         this.descricao = descricao;
         this.data = data;
         this.horario = horario;
-        this.approved = false; // Por padrão, o projeto começa como não aprovado
-        this.hasCoffeeBreak = false; // Por padrão, sem coffee break
+        this.status = 0; // Inicia como Pendente
+        this.hasCoffeeBreak = false;
     }
 
     // Métodos Getter e Setter para o Room acessar os dados
@@ -44,7 +59,7 @@ public class Projeto {
     
     public String getRa() { return ra; }
     public void setRa(String ra) { this.ra = ra; }
-    
+
     public String getNomeProjeto() { return nomeProjeto; }
     public void setNomeProjeto(String nomeProjeto) { this.nomeProjeto = nomeProjeto; }
     
@@ -57,8 +72,14 @@ public class Projeto {
     public String getHorario() { return horario; }
     public void setHorario(String horario) { this.horario = horario; }
 
-    public boolean isApproved() { return approved; }
-    public void setApproved(boolean approved) { this.approved = approved; }
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+
+    public String getFeedback() { return feedback; }
+    public void setFeedback(String feedback) { this.feedback = feedback; }
+
+    public boolean isApproved() { return status == 1; }
+    public void setApproved(boolean approved) { this.status = approved ? 1 : 0; }
 
     public boolean isHasCoffeeBreak() { return hasCoffeeBreak; }
     public void setHasCoffeeBreak(boolean hasCoffeeBreak) { this.hasCoffeeBreak = hasCoffeeBreak; }

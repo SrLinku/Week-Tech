@@ -52,37 +52,51 @@
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"/>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroupFilter"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        app:singleSelection="true"
-        app:selectionRequired="true">
+        android:scrollbars="none"
+        android:layout_marginBottom="16dp">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipPending"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pendentes"
-            android:checked="true" />
+            android:paddingHorizontal="8dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:singleLine="true">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipApproved"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aprovados" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPending"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pendentes"
+                android:checked="true" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipRefused"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recusados" />
-    </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCancellation"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelamentos" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipApproved"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aprovados" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRefused"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recusados" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewActivities"
@@ -91,12 +105,5 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="16dp"/>
-
-    <Button
-        android:id="@+id/btnAddAdmin"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Gerenciar Admins" />
 
 </LinearLayout>

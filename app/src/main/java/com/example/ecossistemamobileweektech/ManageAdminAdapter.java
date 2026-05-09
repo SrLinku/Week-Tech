@@ -13,15 +13,18 @@ import java.util.List;
 
 public class ManageAdminAdapter extends RecyclerView.Adapter<ManageAdminAdapter.AdminViewHolder> {
 
-    private List<Admin> admins;
+    private List<com.example.ecossistemamobileweektech.entity.Admin> admins;
     private boolean isPending;
-    private OnAdminActionListener listener;
 
     public interface OnAdminActionListener {
-        void onAction(Admin admin);
+        void onApprove(com.example.ecossistemamobileweektech.entity.Admin admin);
+        void onRefuse(com.example.ecossistemamobileweektech.entity.Admin admin);
+        void onDelete(com.example.ecossistemamobileweektech.entity.Admin admin);
     }
 
-    public ManageAdminAdapter(List<Admin> admins, boolean isPending, OnAdminActionListener listener) {
+    private OnAdminActionListener listener;
+
+    public ManageAdminAdapter(List<com.example.ecossistemamobileweektech.entity.Admin> admins, boolean isPending, OnAdminActionListener listener) {
         this.admins = admins;
         this.isPending = isPending;
         this.listener = listener;
@@ -36,19 +39,20 @@ public class ManageAdminAdapter extends RecyclerView.Adapter<ManageAdminAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
-        Admin admin = admins.get(position);
+        com.example.ecossistemamobileweektech.entity.Admin admin = admins.get(position);
         holder.textMatricula.setText("Matrícula: " + admin.getMatricula());
         holder.textName.setText("Nome: " + admin.getName());
 
         if (isPending) {
-            holder.btnAction.setVisibility(View.VISIBLE);
-            holder.btnAction.setText("APROVAR");
-            holder.btnAction.setOnClickListener(v -> listener.onAction(admin));
+            holder.layoutPendingActions.setVisibility(View.VISIBLE);
             holder.btnDelete.setVisibility(View.GONE);
+            
+            holder.btnApprove.setOnClickListener(v -> listener.onApprove(admin));
+            holder.btnRefuse.setOnClickListener(v -> listener.onRefuse(admin));
         } else {
-            holder.btnAction.setVisibility(View.GONE);
+            holder.layoutPendingActions.setVisibility(View.GONE);
             holder.btnDelete.setVisibility(View.VISIBLE);
-            holder.btnDelete.setOnClickListener(v -> listener.onAction(admin));
+            holder.btnDelete.setOnClickListener(v -> listener.onDelete(admin));
         }
     }
 
@@ -59,14 +63,17 @@ public class ManageAdminAdapter extends RecyclerView.Adapter<ManageAdminAdapter.
 
     static class AdminViewHolder extends RecyclerView.ViewHolder {
         TextView textMatricula, textName;
-        Button btnAction;
+        View layoutPendingActions;
+        Button btnApprove, btnRefuse;
         ImageButton btnDelete;
 
         public AdminViewHolder(@NonNull View itemView) {
             super(itemView);
             textMatricula = itemView.findViewById(R.id.textAdminMatricula);
             textName = itemView.findViewById(R.id.textAdminName);
-            btnAction = itemView.findViewById(R.id.btnAdminAction);
+            layoutPendingActions = itemView.findViewById(R.id.layoutPendingActions);
+            btnApprove = itemView.findViewById(R.id.btnAdminApprove);
+            btnRefuse = itemView.findViewById(R.id.btnAdminRefuse);
             btnDelete = itemView.findViewById(R.id.btnAdminDelete);
         }
     }

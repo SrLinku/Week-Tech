@@ -22,23 +22,49 @@
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/text_primary"
-        android:layout_marginBottom="48dp"/>
+        android:layout_marginBottom="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acesse sua conta"
+        android:textSize="16sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/btnGoToLogin"
+        android:id="@+id/btnStudentLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entrar com conta existente"
-        android:layout_marginBottom="16dp"
+        android:text="Sou Aluno"
+        android:layout_marginBottom="12dp"
         android:padding="12dp"
-        app:cornerRadius="8dp"/>
+        app:cornerRadius="8dp"
+        app:icon="@android:drawable/ic_menu_myplaces" />
 
     <Button
-        android:id="@+id/btnGoToSignup"
+        android:id="@+id/btnAdminLogin"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Criar nova conta"
+        android:text="Sou Administrador / Professor"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        app:cornerRadius="8dp"
+        app:icon="@android:drawable/ic_lock_lock" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnGoToSignup"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Não tem uma conta? Cadastre-se"
         android:padding="12dp"
         app:cornerRadius="8dp"/>
 

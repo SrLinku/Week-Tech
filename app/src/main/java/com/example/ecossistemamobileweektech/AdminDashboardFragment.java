@@ -58,8 +58,14 @@ public class AdminDashboardFragment extends Fragment {
                 SharedPreferences prefs = requireActivity().getSharedPreferences("WeekTechPrefs", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 
-                // Retorna para a tela de autenticação inicial
-                Navigation.findNavController(view).navigate(R.id.nav_auth_selection);
+                // Retorna para a tela de autenticação inicial limpando o histórico
+                Navigation.findNavController(view).navigate(
+                    R.id.nav_auth_selection,
+                    null,
+                    new androidx.navigation.NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_graph, true)
+                        .build()
+                );
             });
         }
     }
@@ -69,12 +75,10 @@ public class AdminDashboardFragment extends Fragment {
     }
 
     /**
-     * Verifica permissões do administrador logado para exibir ou ocultar a gestão de outros admins.
+     * Atualiza o título com o nome do administrador.
      */
     private void setupAdminAccess(View view) {
-        View btnManageAdmins = view.findViewById(R.id.btnAddAdmin);
         SharedPreferences prefs = requireActivity().getSharedPreferences("WeekTechPrefs", Context.MODE_PRIVATE);
-        boolean isSuper = prefs.getBoolean("is_super_admin", false);
         String fullName = prefs.getString("admin_name", "Admin");
 
         // Extrair primeiro nome
@@ -82,16 +86,6 @@ public class AdminDashboardFragment extends Fragment {
         if (textViewAdminTitle != null) {
             textViewAdminTitle.setText(getString(R.string.title_admin_dashboard, firstName));
         }
-        
-        // Apenas o super administrador (Cris) pode gerenciar outros administradores
-        btnManageAdmins.setVisibility(isSuper ? View.VISIBLE : View.GONE);
-        if (btnManageAdmins instanceof android.widget.Button) {
-            ((android.widget.Button) btnManageAdmins).setText("Gerenciar Admins");
-        }
-
-        btnManageAdmins.setOnClickListener(v ->
-            Navigation.findNavController(view).navigate(R.id.action_dashboard_to_admin_management)
-        );
     }
 
     /**
@@ -103,6 +97,8 @@ public class AdminDashboardFragment extends Fragment {
             status = 1;
         } else if (checkedId == R.id.chipRefused) {
             status = 2;
+        } else if (checkedId == R.id.chipCancellation) {
+            status = 3;
         }
 
         List<Projeto> projects = db.projetoDao().getByStatus(status);

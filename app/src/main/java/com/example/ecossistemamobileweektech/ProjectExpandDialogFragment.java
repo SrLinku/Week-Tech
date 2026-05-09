@@ -61,6 +61,7 @@ public class ProjectExpandDialogFragment extends DialogFragment {
         TextView statusBadge = view.findViewById(R.id.textExpandStatus);
         View layoutFeedback = view.findViewById(R.id.layoutFeedbackStudent);
         TextView feedbackText = view.findViewById(R.id.textExpandFeedback);
+        TextView feedbackLabel = view.findViewById(R.id.textFeedbackLabel);
         Button btnParticipate = view.findViewById(R.id.btnParticipateProject);
 
         // Componentes de Administração
@@ -69,6 +70,7 @@ public class ProjectExpandDialogFragment extends DialogFragment {
         TextView textCoffeeCount = view.findViewById(R.id.textCoffeeCount);
         TextView textAttendedCount = view.findViewById(R.id.textAttendedCount);
         View layoutAdminActions = view.findViewById(R.id.layoutAdminActions);
+        com.google.android.material.textfield.TextInputLayout inputLayoutFeedback = view.findViewById(R.id.inputLayoutFeedback);
         com.google.android.material.textfield.TextInputEditText editFeedback = view.findViewById(R.id.editAdminFeedback);
         Button btnApprove = view.findViewById(R.id.btnAdminApprove);
         Button btnReject = view.findViewById(R.id.btnAdminReject);
@@ -114,16 +116,32 @@ public class ProjectExpandDialogFragment extends DialogFragment {
                 View attendedContainer = (View) textAttendedCount.getParent();
                 attendedContainer.setOnClickListener(v -> showParticipantsList("ATTENDED"));
 
-                // Configura ações de gestão
-                btnApprove.setOnClickListener(v -> updateProjectStatus(1, ""));
-                btnReject.setOnClickListener(v -> {
-                    String feedback = editFeedback.getText().toString().trim();
-                    if (feedback.isEmpty()) {
-                        editFeedback.setError("Informe o motivo da recusa");
-                        return;
-                    }
-                    updateProjectStatus(2, feedback);
-                });
+                // Configura ações de gestão baseadas no status
+                if (projeto.getStatus() == 3) {
+                    // FLUXO DE CANCELAMENTO
+                    inputLayoutFeedback.setVisibility(View.GONE);
+                    layoutFeedback.setVisibility(View.VISIBLE);
+                    feedbackLabel.setText("Motivo da Solicitação de Cancelamento:");
+                    feedbackText.setText(projeto.getFeedback());
+
+                    btnApprove.setText("CONFIRMAR EXCLUSÃO");
+                    btnApprove.setBackgroundTintList(android.content.res.ColorStateList.valueOf(getResources().getColor(android.R.color.holo_red_dark, null)));
+                    btnApprove.setOnClickListener(v -> deleteProjectPermanently());
+
+                    btnReject.setText("NEGAR CANCELAMENTO");
+                    btnReject.setOnClickListener(v -> updateProjectStatus(1, "")); // Volta para aprovado
+                } else {
+                    // FLUXO DE APROVAÇÃO NORMAL
+                    btnApprove.setOnClickListener(v -> updateProjectStatus(1, ""));
+                    btnReject.setOnClickListener(v -> {
+                        String feedback = editFeedback.getText().toString().trim();
+                        if (feedback.isEmpty()) {
+                            editFeedback.setError("Informe o motivo da recusa");
+                            return;
+                        }
+                        updateProjectStatus(2, feedback);
+                    });
+                }
 
             } else if (isStudent) {
                 // MODO ESTUDANTE:
@@ -310,6 +328,21 @@ public class ProjectExpandDialogFragment extends DialogFragment {
                 Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 dismiss();
                 // Opcional: Recarregar a lista no fragmento pai se necessário
+            });
+        }).start();
+    }
+
+    /**
+     * Remove o projeto definitivamente do banco de dados (Ação do Admin após solicitação de cancelamento).
+     */
+    private void deleteProjectPermanently() {
+        new Thread(() -> {
+            AppDatabase db = AppDatabase.getInstance(requireContext());
+            db.projetoDao().delete(projeto);
+
+            requireActivity().runOnUiThread(() -> {
+                Toast.makeText(getContext(), "Projeto removido definitivamente.", Toast.LENGTH_SHORT).show();
+                dismiss();
             });
         }).start();
     }

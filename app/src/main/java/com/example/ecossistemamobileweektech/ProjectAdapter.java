@@ -90,23 +90,21 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         // Lógica de Inscrição (Badge)
         checkInscriptionStatus(holder, projeto);
 
-        // Lógica de Cancelamento de Projeto (Apenas se for o autor e estiver na tela de gerenciamento)
+        // Lógica de Solicitação de Cancelamento de Projeto (Apenas se for o autor e estiver na tela de gerenciamento)
         if (isManagementMode && projeto.getRa().equals(studentRA)) {
             holder.btnCancelProject.setVisibility(View.VISIBLE);
-            holder.btnCancelProject.setOnClickListener(v -> {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Cancelar Projeto")
-                        .setMessage("Tem certeza que deseja excluir o projeto: " + projeto.getNomeProjeto() + "?\nEsta ação não pode ser desfeita.")
-                        .setPositiveButton("Sim, Excluir", (dialog, which) -> {
-                            AppDatabase.getInstance(v.getContext()).projetoDao().delete(projeto);
-                            projectList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, projectList.size());
-                            Toast.makeText(v.getContext(), "Projeto excluído com sucesso", Toast.LENGTH_SHORT).show();
-                        })
-                        .setNegativeButton("Não", null)
-                        .show();
-            });
+            
+            // Se já solicitou cancelamento, muda o texto do botão
+            if (projeto.getStatus() == 3) {
+                holder.btnCancelProject.setText("CANCELAMENTO PENDENTE");
+                holder.btnCancelProject.setEnabled(false);
+                holder.btnCancelProject.setAlpha(0.6f);
+            } else {
+                holder.btnCancelProject.setText("SOLICITAR CANCELAMENTO");
+                holder.btnCancelProject.setEnabled(true);
+                holder.btnCancelProject.setAlpha(1.0f);
+                holder.btnCancelProject.setOnClickListener(v -> showCancellationRequestDialog(v.getContext(), projeto, position));
+            }
         } else {
             holder.btnCancelProject.setVisibility(View.GONE);
         }
@@ -117,6 +115,41 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
                 dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "project_expand");
             }
         });
+    }
+
+    private void showCancellationRequestDialog(Context context, Projeto projeto, int position) {
+        android.widget.EditText editReason = new android.widget.EditText(context);
+        editReason.setHint("Informe o motivo do cancelamento...");
+        int padding = (int) (16 * context.getResources().getDisplayMetrics().density);
+        
+        android.widget.FrameLayout container = new android.widget.FrameLayout(context);
+        container.setPadding(padding, padding/2, padding, 0);
+        container.addView(editReason);
+
+        new AlertDialog.Builder(context)
+                .setTitle("Solicitar Cancelamento")
+                .setMessage("Deseja solicitar o cancelamento do projeto: " + projeto.getNomeProjeto() + "?")
+                .setView(container)
+                .setPositiveButton("Enviar Solicitação", (dialog, which) -> {
+                    String reason = editReason.getText().toString().trim();
+                    if (reason.isEmpty()) {
+                        Toast.makeText(context, "O motivo é obrigatório", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    new Thread(() -> {
+                        projeto.setStatus(3); // Status de solicitação de cancelamento
+                        projeto.setFeedback("SOLICITAÇÃO DE CANCELAMENTO: " + reason);
+                        AppDatabase.getInstance(context).projetoDao().update(projeto);
+                        
+                        ((AppCompatActivity) context).runOnUiThread(() -> {
+                            notifyItemChanged(position);
+                            Toast.makeText(context, "Solicitação enviada para análise", Toast.LENGTH_LONG).show();
+                        });
+                    }).start();
+                })
+                .setNegativeButton("Voltar", null)
+                .show();
     }
 
     private void checkInscriptionStatus(ProjectViewHolder holder, Projeto projeto) {

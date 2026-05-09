@@ -79,6 +79,7 @@
                     android:background="#FFF3E0"
                     android:visibility="gone">
                     <TextView
+                        android:id="@+id/textFeedbackLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nota do Administrador:"
@@ -93,32 +94,6 @@
                         android:textColor="#E65100"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#A5D6A7"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/textAttendedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_green_dark"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Presenças"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"/>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -202,33 +177,7 @@
                             android:text="Inscritos"
                             android:textSize="12sp"
                             android:textColor="@color/text_secondary"/>
-                        <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#A5D6A7"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/textAttendedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_green_dark"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Presenças"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"/>
                     </LinearLayout>
-                </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
@@ -255,33 +204,8 @@
                             android:text="Coffee Break"
                             android:textSize="12sp"
                             android:textColor="@color/text_secondary"/>
-                        <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#A5D6A7"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/textAttendedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_green_dark"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Presenças"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"/>
                     </LinearLayout>
-                </LinearLayout>
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -393,58 +317,6 @@
                             android:layout_weight="1"
                             android:text="APROVAR"
                             android:backgroundTint="@android:color/holo_green_dark"/>
-                        <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#A5D6A7"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/textAttendedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_green_dark"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Presenças"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"/>
-                    </LinearLayout>
-                </LinearLayout>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#A5D6A7"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/textAttendedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_green_dark"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Presenças"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"/>
                     </LinearLayout>
                 </LinearLayout>
 

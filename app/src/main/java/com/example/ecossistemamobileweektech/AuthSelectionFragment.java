@@ -20,8 +20,11 @@ public class AuthSelectionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_auth_selection, container, false);
 
-        view.findViewById(R.id.btnGoToLogin).setOnClickListener(v -> 
-            Navigation.findNavController(view).navigate(R.id.nav_user_selection));
+        view.findViewById(R.id.btnStudentLogin).setOnClickListener(v -> 
+            Navigation.findNavController(view).navigate(R.id.nav_student_login));
+
+        view.findViewById(R.id.btnAdminLogin).setOnClickListener(v -> 
+            Navigation.findNavController(view).navigate(R.id.nav_admin_login));
 
         view.findViewById(R.id.btnGoToSignup).setOnClickListener(v -> 
             Navigation.findNavController(view).navigate(R.id.nav_signup));

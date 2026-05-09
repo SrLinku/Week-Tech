@@ -36,21 +36,56 @@ public class AdminManagementFragment extends Fragment {
     }
 
     private void loadAdmins() {
-        List<Admin> pending = db.adminDao().getByStatus(0);
-        List<Admin> active = db.adminDao().getByStatus(1);
+        new Thread(() -> {
+            List<Admin> pending = db.adminDao().getByStatus(0);
+            List<Admin> active = db.adminDao().getByStatus(1);
 
-        rvPending.setAdapter(new ManageAdminAdapter(pending, true, this::updateAdmin));
-        rvActive.setAdapter(new ManageAdminAdapter(active, false, this::deleteAdmin));
+            requireActivity().runOnUiThread(() -> {
+                rvPending.setAdapter(new ManageAdminAdapter(pending, true, new ManageAdminAdapter.OnAdminActionListener() {
+                    @Override
+                    public void onApprove(Admin admin) {
+                        updateAdminStatus(admin, 1);
+                    }
+
+                    @Override
+                    public void onRefuse(Admin admin) {
+                        deleteAdmin(admin); // Recusar deleta o pedido
+                    }
+
+                    @Override
+                    public void onDelete(Admin admin) {
+                        // Não usado para pendentes
+                    }
+                }));
+
+                rvActive.setAdapter(new ManageAdminAdapter(active, false, new ManageAdminAdapter.OnAdminActionListener() {
+                    @Override
+                    public void onApprove(Admin admin) {}
+
+                    @Override
+                    public void onRefuse(Admin admin) {}
+
+                    @Override
+                    public void onDelete(Admin admin) {
+                        deleteAdmin(admin);
+                    }
+                }));
+            });
+        }).start();
     }
 
-    private void updateAdmin(Admin admin) {
-        admin.setStatus(1);
-        db.adminDao().update(admin);
-        loadAdmins();
+    private void updateAdminStatus(Admin admin, int status) {
+        new Thread(() -> {
+            admin.setStatus(status);
+            db.adminDao().update(admin);
+            loadAdmins();
+        }).start();
     }
 
     private void deleteAdmin(Admin admin) {
-        db.adminDao().delete(admin);
-        loadAdmins();
+        new Thread(() -> {
+            db.adminDao().delete(admin);
+            loadAdmins();
+        }).start();
     }
 }

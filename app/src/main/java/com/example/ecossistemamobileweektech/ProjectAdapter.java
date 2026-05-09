@@ -90,20 +90,25 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         // Lógica de Inscrição (Badge)
         checkInscriptionStatus(holder, projeto);
 
-        // Lógica de Solicitação de Cancelamento de Projeto (Apenas se for o autor e estiver na tela de gerenciamento)
+        // Lógica de Solicitação de Cancelamento/Remoção de Projeto (Apenas se for o autor e estiver na tela de gerenciamento)
         if (isManagementMode && projeto.getRa().equals(studentRA)) {
             holder.btnCancelProject.setVisibility(View.VISIBLE);
-            
-            // Se já solicitou cancelamento, muda o texto do botão
-            if (projeto.getStatus() == 3) {
+            holder.btnCancelProject.setEnabled(true);
+            holder.btnCancelProject.setAlpha(1.0f);
+
+            int status = projeto.getStatus();
+            if (status == 3) {
                 holder.btnCancelProject.setText("CANCELAMENTO PENDENTE");
                 holder.btnCancelProject.setEnabled(false);
                 holder.btnCancelProject.setAlpha(0.6f);
-            } else {
+            } else if (status == 1) {
+                // Apenas projetos aprovados exigem fluxo de auditoria para cancelar
                 holder.btnCancelProject.setText("SOLICITAR CANCELAMENTO");
-                holder.btnCancelProject.setEnabled(true);
-                holder.btnCancelProject.setAlpha(1.0f);
                 holder.btnCancelProject.setOnClickListener(v -> showCancellationRequestDialog(v.getContext(), projeto, position));
+            } else {
+                // Projetos Recusados (2) ou ainda Pendentes (0) podem ser removidos imediatamente
+                holder.btnCancelProject.setText("REMOVER");
+                holder.btnCancelProject.setOnClickListener(v -> showDeleteConfirmationDialog(v.getContext(), projeto, position));
             }
         } else {
             holder.btnCancelProject.setVisibility(View.GONE);
@@ -115,6 +120,25 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
                 dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "project_expand");
             }
         });
+    }
+
+    private void showDeleteConfirmationDialog(Context context, Projeto projeto, int position) {
+        new AlertDialog.Builder(context)
+                .setTitle("Remover Projeto")
+                .setMessage("Deseja remover permanentemente o projeto: " + projeto.getNomeProjeto() + "?")
+                .setPositiveButton("Remover", (dialog, which) -> {
+                    new Thread(() -> {
+                        AppDatabase.getInstance(context).projetoDao().delete(projeto);
+                        ((AppCompatActivity) context).runOnUiThread(() -> {
+                            projectList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, projectList.size());
+                            Toast.makeText(context, "Projeto removido com sucesso", Toast.LENGTH_SHORT).show();
+                        });
+                    }).start();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private void showCancellationRequestDialog(Context context, Projeto projeto, int position) {

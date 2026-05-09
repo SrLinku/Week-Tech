@@ -64,37 +64,17 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerViewProjects = view.findViewById(R.id.recyclerViewProjects);
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Projeto> allEvents = new ArrayList<>();
-
-        // 1. Criar objetos "Projeto" temporários para representar as Palestras Fixas
-        // Isso permite usar o mesmo Adapter para manter a consistência visual
-        String[] fixedLectures = getResources().getStringArray(R.array.events_array);
-        for (String lecture : fixedLectures) {
-            Projeto p = new Projeto();
-            p.setNomeProjeto(lecture);
-            p.setNomeAluno("Convidado Especial");
-            p.setData("22/05");
-            p.setHorario("19:00");
-            p.setDescricao("Palestra oficial do evento Mobile Week Tech.");
-            p.setStatus(1); // Aprovado
-            p.setTipoEvento("PALESTRA");
-            
-            // Se a palestra contiver "Coffee Break" no nome, ativa a flag para exibir o ícone
-            if (lecture.contains("Coffee Break")) {
-                p.setHasCoffeeBreak(true);
+        new Thread(() -> {
+            // Buscar apenas projetos reais aprovados do banco de dados
+            List<Projeto> dbProjects = AppDatabase.getInstance(requireContext()).projetoDao().getApproved();
+            for (Projeto p : dbProjects) {
+                p.setTipoEvento("PROJETO");
             }
 
-            allEvents.add(p);
-        }
-
-        // 2. Buscar projetos reais aprovados do banco de dados
-        List<Projeto> dbProjects = AppDatabase.getInstance(requireContext()).projetoDao().getApproved();
-        for (Projeto p : dbProjects) {
-            p.setTipoEvento("PROJETO");
-            allEvents.add(p);
-        }
-
-        ProjectAdapter projectAdapter = new ProjectAdapter(allEvents, requireContext());
-        recyclerViewProjects.setAdapter(projectAdapter);
+            requireActivity().runOnUiThread(() -> {
+                ProjectAdapter projectAdapter = new ProjectAdapter(dbProjects, requireContext());
+                recyclerViewProjects.setAdapter(projectAdapter);
+            });
+        }).start();
     }
 }

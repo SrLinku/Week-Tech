@@ -95,7 +95,7 @@ public class SignupFragment extends Fragment {
             Usuario user = new Usuario(name, ra, course, semester, pass);
             db.usuarioDao().insert(user);
             Toast.makeText(getContext(), "Conta de aluno criada! Faça login.", Toast.LENGTH_LONG).show();
-            Navigation.findNavController(requireView()).navigate(R.id.nav_user_selection);
+            Navigation.findNavController(requireView()).navigate(R.id.nav_auth_selection);
 
         } else {
             String adminName = editAdminName.getText().toString().trim();
@@ -121,7 +121,7 @@ public class SignupFragment extends Fragment {
             Admin admin = new Admin(adminName, matricula, pass, false);
             db.adminDao().insert(admin);
             Toast.makeText(getContext(), "Solicitação enviada para Cris!", Toast.LENGTH_LONG).show();
-            Navigation.findNavController(requireView()).navigate(R.id.nav_user_selection);
+            Navigation.findNavController(requireView()).navigate(R.id.nav_auth_selection);
         }
     }
 }

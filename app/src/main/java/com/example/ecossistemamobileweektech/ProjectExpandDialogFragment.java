@@ -318,16 +318,19 @@ public class ProjectExpandDialogFragment extends DialogFragment {
      */
     private void updateProjectStatus(int newStatus, String feedback) {
         new Thread(() -> {
-            AppDatabase db = AppDatabase.getInstance(requireContext());
+            Context context = getContext();
+            if (context == null) return;
+            AppDatabase db = AppDatabase.getInstance(context);
             projeto.setStatus(newStatus);
             projeto.setFeedback(feedback);
             db.projetoDao().update(projeto);
 
-            requireActivity().runOnUiThread(() -> {
-                String msg = newStatus == 1 ? "Projeto aprovado!" : "Projeto recusado.";
-                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-                dismiss();
-                // Opcional: Recarregar a lista no fragmento pai se necessário
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                if (isAdded()) {
+                    String msg = newStatus == 1 ? "Projeto aprovado!" : "Projeto recusado.";
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
             });
         }).start();
     }
@@ -337,12 +340,16 @@ public class ProjectExpandDialogFragment extends DialogFragment {
      */
     private void deleteProjectPermanently() {
         new Thread(() -> {
-            AppDatabase db = AppDatabase.getInstance(requireContext());
+            Context context = getContext();
+            if (context == null) return;
+            AppDatabase db = AppDatabase.getInstance(context);
             db.projetoDao().delete(projeto);
 
-            requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Projeto removido definitivamente.", Toast.LENGTH_SHORT).show();
-                dismiss();
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Projeto removido definitivamente.", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
             });
         }).start();
     }

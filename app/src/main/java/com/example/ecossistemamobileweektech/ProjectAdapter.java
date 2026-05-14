@@ -108,7 +108,12 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
             } else {
                 // Projetos Recusados (2) ou ainda Pendentes (0) podem ser removidos imediatamente
                 holder.btnCancelProject.setText("REMOVER");
-                holder.btnCancelProject.setOnClickListener(v -> showDeleteConfirmationDialog(v.getContext(), projeto, position));
+                holder.btnCancelProject.setOnClickListener(v -> {
+                    int currentPos = holder.getAdapterPosition();
+                    if (currentPos != RecyclerView.NO_POSITION) {
+                        showDeleteConfirmationDialog(v.getContext(), projectList.get(currentPos), currentPos);
+                    }
+                });
             }
         } else {
             holder.btnCancelProject.setVisibility(View.GONE);
@@ -118,6 +123,17 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
             if (v.getContext() instanceof AppCompatActivity) {
                 ProjectExpandDialogFragment dialog = ProjectExpandDialogFragment.newInstance(projeto);
                 dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "project_expand");
+            } else if (v.getContext() instanceof android.view.ContextThemeWrapper) {
+                // Tentar encontrar a activity se o context estiver wrapped
+                Context context = v.getContext();
+                while (context instanceof android.content.ContextWrapper) {
+                    if (context instanceof AppCompatActivity) {
+                        ProjectExpandDialogFragment dialog = ProjectExpandDialogFragment.newInstance(projeto);
+                        dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "project_expand");
+                        break;
+                    }
+                    context = ((android.content.ContextWrapper) context).getBaseContext();
+                }
             }
         });
     }
@@ -129,11 +145,15 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
                 .setPositiveButton("Remover", (dialog, which) -> {
                     new Thread(() -> {
                         AppDatabase.getInstance(context).projetoDao().delete(projeto);
-                        ((AppCompatActivity) context).runOnUiThread(() -> {
-                            projectList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, projectList.size());
-                            Toast.makeText(context, "Projeto removido com sucesso", Toast.LENGTH_SHORT).show();
+                        
+                        // Usar o looper principal para postar na UI thread de forma segura
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                            if (position >= 0 && position < projectList.size()) {
+                                projectList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, projectList.size());
+                                Toast.makeText(context, "Projeto removido com sucesso", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     }).start();
                 })
@@ -166,7 +186,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
                         projeto.setFeedback("SOLICITAÇÃO DE CANCELAMENTO: " + reason);
                         AppDatabase.getInstance(context).projetoDao().update(projeto);
                         
-                        ((AppCompatActivity) context).runOnUiThread(() -> {
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
                             notifyItemChanged(position);
                             Toast.makeText(context, "Solicitação enviada para análise", Toast.LENGTH_LONG).show();
                         });

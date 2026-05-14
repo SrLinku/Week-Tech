@@ -153,11 +153,14 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
                 .setPositiveButton("Sim, Cancelar", (dialog, which) -> {
                     new Thread(() -> {
                         AppDatabase.getInstance(holder.itemView.getContext()).participanteDao().delete(p);
-                        ((FragmentActivity) holder.itemView.getContext()).runOnUiThread(() -> {
-                            participantList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, participantList.size());
-                            Toast.makeText(holder.itemView.getContext(), "Inscrição cancelada.", Toast.LENGTH_SHORT).show();
+                        
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                            if (position >= 0 && position < participantList.size()) {
+                                participantList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, participantList.size());
+                                Toast.makeText(holder.itemView.getContext(), "Inscrição cancelada.", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     }).start();
                 })

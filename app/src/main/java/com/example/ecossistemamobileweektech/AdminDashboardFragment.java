@@ -40,7 +40,6 @@ public class AdminDashboardFragment extends Fragment {
         chipGroupFilter = view.findViewById(R.id.chipGroupFilter);
         textViewAdminTitle = view.findViewById(R.id.textViewAdminTitle);
 
-        setupLogout(view);
         setupFilter();
         setupAdminAccess(view);
 
@@ -48,26 +47,6 @@ public class AdminDashboardFragment extends Fragment {
         loadFilteredProjects(R.id.chipPending);
 
         return view;
-    }
-
-    private void setupLogout(View view) {
-        View btnLogout = view.findViewById(R.id.btnAdminLogout);
-        if (btnLogout != null) {
-            btnLogout.setOnClickListener(v -> {
-                // Limpa totalmente a sessão
-                SharedPreferences prefs = requireActivity().getSharedPreferences("WeekTechPrefs", Context.MODE_PRIVATE);
-                prefs.edit().clear().apply();
-                
-                // Retorna para a tela de autenticação inicial limpando o histórico
-                Navigation.findNavController(view).navigate(
-                    R.id.nav_auth_selection,
-                    null,
-                    new androidx.navigation.NavOptions.Builder()
-                        .setPopUpTo(R.id.nav_graph, true)
-                        .build()
-                );
-            });
-        }
     }
 
     private void setupFilter() {

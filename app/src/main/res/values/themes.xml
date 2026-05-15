@@ -13,7 +13,34 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
-    <style name="Theme.EcossistemaMobileWeekTech" parent="Base.Theme.EcossistemaMobileWeekTech" />
+    <style name="Theme.EcossistemaMobileWeekTech" parent="Base.Theme.EcossistemaMobileWeekTech">
+        <item name="actionButtonStyle">@style/CustomActionButtonStyle</item>
+        <item name="bottomNavigationStyle">@style/CustomBottomNavStyle</item>
+    </style>
+
+    <style name="CustomBottomNavStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconSize">22dp</item>
+        <item name="itemPaddingTop">8dp</item>
+        <item name="itemPaddingBottom">12dp</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavText</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavText.Active</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="BottomNavText.Active" parent="BottomNavText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/bg_logout_button</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 
     <style name="FullScreenDialog" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>

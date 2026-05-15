@@ -31,25 +31,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        setupLogout(view);
         setupLocationLink(view);
         setupEventsList(view);
 
         return view;
-    }
-
-    private void setupLogout(View view) {
-        View btnLogout = view.findViewById(R.id.btnLogout);
-        if (btnLogout != null) {
-            btnLogout.setOnClickListener(v -> {
-                // Limpa a sessão do estudante
-                SharedPreferences prefs = requireActivity().getSharedPreferences("WeekTechPrefs", Context.MODE_PRIVATE);
-                prefs.edit().clear().apply();
-                
-                // Retorna para a tela de autenticação inicial limpando o histórico
-                Navigation.findNavController(view).navigate(R.id.nav_auth_selection);
-            });
-        }
     }
 
     private void setupLocationLink(View view) {

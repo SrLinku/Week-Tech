@@ -1,6 +1,8 @@
 package com.example.ecossistemamobileweektech;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -53,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         if (mainView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                // Remover o padding top automático pois a Toolbar já ocupa esse espaço
                 v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
+                
+                // Ajustar padding da Toolbar para compensar a barra de status transparente
+                toolbar.setPadding(0, systemBars.top, 0, 0);
                 return insets;
             });
         }
@@ -102,14 +106,53 @@ public class MainActivity extends AppCompatActivity {
                 boolean isSuper = prefs.getBoolean("is_super_admin", false);
                 navView.getMenu().findItem(R.id.nav_admin_management).setVisible(isProfessionalMode && isSuper);
 
-                // Ocultar Toolbar em destinos que já possuem cabeçalho customizado (Home)
-                if (id == R.id.nav_home) {
-                    if (getSupportActionBar() != null) getSupportActionBar().hide();
-                } else {
-                    if (getSupportActionBar() != null) getSupportActionBar().show();
-                }
+                // Sempre mostrar a Toolbar nas telas internas para ter o botão SAIR padronizado
+                if (getSupportActionBar() != null) getSupportActionBar().show();
             }
+            
+            // Atualizar menu de opções para mostrar/esconder o botão SAIR
+            invalidateOptionsMenu();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        MenuItem logoutItem = menu.findItem(R.id.action_logout);
+        if (logoutItem != null && navController.getCurrentDestination() != null) {
+            int id = navController.getCurrentDestination().getId();
+            // Esconder SAIR nas telas de login/cadastro
+            boolean isAuthScreen = id == R.id.nav_auth_selection || id == R.id.nav_user_selection ||
+                    id == R.id.nav_admin_login || id == R.id.nav_student_login || id == R.id.nav_signup;
+            logoutItem.setVisible(!isAuthScreen);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        android.content.SharedPreferences prefs = getSharedPreferences("WeekTechPrefs", MODE_PRIVATE);
+        prefs.edit().clear().apply();
+        isProfessionalMode = false;
+        
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_auth_selection, null, new androidx.navigation.NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, true)
+                .build());
     }
 
     @Override
